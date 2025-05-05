@@ -35,7 +35,7 @@ namespace HospitalManagementSystem.Services.Services
             var patient = _context.Patients.FirstOrDefault(p => p.PatientID == id);
             if (patient != null)
             {
-                patient.Status = "InActive";
+                patient.Status = Models.Enums.Status.Inactive;
                 _context.SaveChanges();
             }
         }

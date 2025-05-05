@@ -23,10 +23,10 @@ namespace HospitalManagementSystem.Services.Services
         }
         public async Task DeleteDoctor(int id)
         {
-            var doctor = context.Doctors.FirstOrDefault(p => p.DoctorID == id);
+            var doctor = context.Doctors.FirstOrDefault(p => p.Id == id);
             if (doctor != null)
             {
-                doctor.Status = "InActive";
+                doctor.Status = Models.Enums.Status.Active;
                 context.SaveChanges();
             }
         }

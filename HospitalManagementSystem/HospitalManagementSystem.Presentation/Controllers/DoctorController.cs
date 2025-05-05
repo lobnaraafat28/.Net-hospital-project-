@@ -14,36 +14,6 @@ namespace HospitalManagementSystem.Presentation.Controllers
         {
            _doctorService = doctorService;
         }
-        public async Task<IActionResult> Index()
-        {
-            var doctorsVM = new List<DoctorViewModel>();
-
-            var doctors = await _doctorService.GetAllAsync();
-            if(doctors == null || !doctors.Any())
-            {
-                var errorViewModel = new ErrorViewModel()
-                {
-                    ErrorType = "404",
-                    ErrorMessage = "Unfound Information"
-                };
-
-                return View("Error", errorViewModel);
-            }
-            foreach(var I in doctors)
-            {
-                var doctorModel = new DoctorViewModel()
-                {
-                    ImageURL = I.ImageURL,
-                    Name = I.Name,
-                    Status= I.Status,
-                    Specialization = I.Specialization,
-
-                };
-                doctorsVM.Add(doctorModel);
-            }
-         
-            if (doctors.Any()) return View(doctorsVM);
-            return View();
-        }
+     
     }
 }

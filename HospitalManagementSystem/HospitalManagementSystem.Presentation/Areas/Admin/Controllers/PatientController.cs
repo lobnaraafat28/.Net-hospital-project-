@@ -20,7 +20,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
         public async Task<IActionResult> AllPatients()
         {
             var patients = await _patientService.GetAllAsync();
-            var activePatient = patients.Where(d => d.Status == "Active").ToList();
+            var activePatient = patients.Where(d => d.Status == HospitalManagementSystem.Models.Enums.Status.Active).ToList();
 
             var patientsList = new List<PatientVM>();
             foreach (var patient in activePatient)
@@ -32,7 +32,6 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
                     BirthDate = patient.BirthDate,
                     GenderType = patient.GenderType,
                     PhoneNumber= patient.PhoneNumber,
-                    Status = patient.Status,
                     Age = (DateTime.Now.Year) - (patient.BirthDate.Year)
 
             };
@@ -58,8 +57,8 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
             var patient = new Patient()
             {
                 Name = patientVM.Name,
-                Status = "Active",
-                PhoneNumber = patientVM.PhoneNumber,
+                Status = HospitalManagementSystem.Models.Enums.Status.Active,
+                PhoneNumber = patientVM.PhoneNumber??"N/A",
                 Address = patientVM.Address,
                 BirthDate = patientVM.BirthDate,
                 GenderType = patientVM.GenderType,

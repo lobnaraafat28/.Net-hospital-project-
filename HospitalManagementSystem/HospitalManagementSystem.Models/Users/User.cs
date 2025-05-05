@@ -23,7 +23,6 @@ namespace HospitalManagementSystem.Models.Users
         public int ModifiedBy { get; set; }
         public string? Status { get; set; }
 
-        public virtual UserDetails? UserDetails { get; set; }
-        public virtual ICollection<UserRole>? UserRoles { get; set; }
+       
     }
 }

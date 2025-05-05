@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace HospitalManagementSystem.Services.Services
 {
-    public class UserService : GenericRepository<User>, IUserService
+    public class UserService : GenericRepository<User>//, IUserService
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -34,17 +34,17 @@ namespace HospitalManagementSystem.Services.Services
 
             return roleNames;
         }
-        public async Task<UsersDto> GetUserByUserNameAsync(string username)
-        {
-            var user = await _context.CustomUsers.FirstOrDefaultAsync(x => x.UserName == username);
-            var userdto = _mapper.Map<UsersDto>(user);
-            return userdto;
+    //    public async Task<UsersDto> GetUserByUserNameAsync(string username)
+    //    {
+    //        var user = await _context.CustomUsers.FirstOrDefaultAsync(x => x.UserName == username);
+    //        var userdto = _mapper.Map<UsersDto>(user);
+    //        return userdto;
 
-        }
-        public async Task<bool> IsExist(string username)
-        {
-           return await _context.CustomUsers.AnyAsync(u => u.UserName == username);
-        }
+    //    }
+    //    public async Task<bool> IsExist(string username)
+    //    {
+    //       return await _context.CustomUsers.AnyAsync(u => u.UserName == username);
+    //    }
         
     }
 }

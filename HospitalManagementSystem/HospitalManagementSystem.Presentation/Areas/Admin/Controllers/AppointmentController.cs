@@ -1,4 +1,5 @@
 ﻿using HospitalManagementSystem.Models.Appointments;
+using HospitalManagementSystem.Models.Enums;
 using HospitalManagementSystem.Presentation.Areas.Admin.Models;
 using HospitalManagementSystem.Services.Services;
 using HospitalManagementSystem.Services.Services.Interfaces;
@@ -33,7 +34,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
                 {
                     AppointmentDate = DateTime.Now,
                     AppointmentTime = DateTime.Now.TimeOfDay,
-                    DoctorID = appointment.AppointmentID,
+                    DoctorID = appointment.Id,
                     PatientID = appointment.PatientID,
                     ScheduleID = appointment.ScheduleID,
 
@@ -54,13 +55,13 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
                 }).ToList(),
                 Doctors = (await _doctorService.GetAllAsync()).Select(p => new SelectListItem
                 {
-                    Value = p.DoctorID.ToString(),
+                    Value = p.Id.ToString(),
                     Text = p.Name
                 }).ToList(),
                 Schedules = (await _scheduleService.GetAllAsync()).Select(p => new SelectListItem
                 {
-                    Value = p.ScheduleID.ToString(),
-                    Text = $"{p.StartDate}-{p.EndDate}"
+                    Value = p.Id.ToString(),
+                    Text = $"{p.StartTime}-{p.EndTime}"
                 }).ToList()
             };
 
@@ -83,13 +84,13 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
                 }).ToList();
                 appointmentVM.Doctors = (await _doctorService.GetAllAsync()).Select(d => new SelectListItem
                 {
-                    Value = d.DoctorID.ToString(),
+                    Value = d.Id.ToString(),
                     Text = d.Name
                 }).ToList();
                 appointmentVM.Schedules = (await _scheduleService.GetAllAsync()).Select(s => new SelectListItem
                 {
-                    Value = s.ScheduleID.ToString(),
-                    Text = $"{s.StartDate} - {s.EndDate}"
+                    Value = s.Id.ToString(),
+                    Text = $"{s.StartTime} - {s.EndTime}"
                 }).ToList();
 
                 return View(appointmentVM);
@@ -99,7 +100,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
             {
                 AppointmentDate = appointmentVM.AppointmentDate,
                 AppointmentTime = appointmentVM.AppointmentTime,
-                Status ="Active",
+                Status = Status.Active,
                 PatientID = appointmentVM.PatientID,
                 DoctorID = appointmentVM.DoctorID,
                 ScheduleID = appointmentVM.ScheduleID
@@ -119,7 +120,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
 
             var appointmentVM = new AppointmentVM
             {
-                AppointmentID = appointment.AppointmentID,
+                AppointmentID = appointment.Id,
                 AppointmentDate = appointment.AppointmentDate,
                 AppointmentTime = appointment.AppointmentTime,
                 PatientID = appointment.PatientID,
@@ -132,13 +133,13 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
                 }).ToList(),
                 Doctors = (await _doctorService.GetAllAsync()).Select(d => new SelectListItem
                 {
-                    Value = d.DoctorID.ToString(),
+                    Value = d.Id.ToString(),
                     Text = d.Name
                 }).ToList(),
                 Schedules = (await _scheduleService.GetAllAsync()).Select(s => new SelectListItem
                 {
-                    Value = s.ScheduleID.ToString(),
-                    Text = $"{s.StartDate} - {s.EndDate}"
+                    Value = s.Id.ToString(),
+                    Text = $"{s.StartTime} - {s.EndTime}"
                 }).ToList()
             };
 
@@ -161,13 +162,13 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
                 }).ToList();
                 appointmentVM.Doctors = (await _doctorService.GetAllAsync()).Select(d => new SelectListItem
                 {
-                    Value = d.DoctorID.ToString(),
+                    Value = d.Id.ToString(),
                     Text = d.Name
                 }).ToList();
                 appointmentVM.Schedules = (await _scheduleService.GetAllAsync()).Select(s => new SelectListItem
                 {
-                    Value = s.ScheduleID.ToString(),
-                    Text = $"{s.StartDate} - {s.EndDate}"
+                    Value = s.Id.ToString(),
+                    Text = $"{s.StartTime} - {s.EndTime}"
                 }).ToList();
 
                 return View(appointmentVM);
@@ -196,7 +197,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            appointment.Status = "InActive";
+            appointment.Status = Status.Inactive;
 
             return RedirectToAction(nameof(AllAppointments));
         }

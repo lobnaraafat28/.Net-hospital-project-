@@ -30,7 +30,6 @@ namespace HospitalManagementSystem.Presentation
             builder.Services.AddScoped<IAppointmentService, AppointmentService>();
             builder.Services.AddScoped<IScheduleService, ScheduleService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
-            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

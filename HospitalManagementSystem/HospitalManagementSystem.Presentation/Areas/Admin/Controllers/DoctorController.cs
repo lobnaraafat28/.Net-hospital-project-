@@ -1,4 +1,5 @@
 ﻿using HospitalManagementSystem.Models.Doctors;
+using HospitalManagementSystem.Models.Enums;
 using HospitalManagementSystem.Presentation.Areas.Admin.Models;
 using HospitalManagementSystem.Presentation.ViewModels;
 using HospitalManagementSystem.Services.Helpers;
@@ -26,17 +27,16 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> AllDoctors() {
             var doctors = await _doctorService.GetAllAsync();
-            var activeDoctors = doctors.Where(p => p.Status == "Active").ToList();
+            var activeDoctors = doctors.Where(p => p.Status == Status.Active).ToList();
             var doctorsList = new List<DoctorVM>();
             foreach (var doctor in activeDoctors)
             {
                 var doctorVM = new DoctorVM()
                 {
-                    Id = doctor.DoctorID,
+                    Id = doctor.Id,
                     Name = doctor.Name,
                     Phone = doctor.Phone,
                     ImageURL = doctor.ImageURL,
-                    Status = doctor.Status,
                     Specialization = doctor.Specialization,
                     DepartmentId = doctor.DepartmentID,
                     SpecialityLevel = doctor.SpecialtyLevel
@@ -54,7 +54,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
             {
                 Departments = departments.Select(d => new SelectListItem
                 {
-                    Value = d.DepartmentID.ToString(),
+                    Value = d.Id.ToString(),
                     Text = d.Name
                 }).ToList()
             };
@@ -66,7 +66,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 doctorVm.Departments = (await _departmentService.GetAllAsync())
-                    .Select(d => new SelectListItem { Value = d.DepartmentID.ToString(), Text = d.Name })
+                    .Select(d => new SelectListItem { Value = d.Id.ToString(), Text = d.Name })
                     .ToList();
                 return View(doctorVm);
             }
@@ -77,7 +77,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
             {
                 Name = doctorVm.Name,
                 Specialization = doctorVm.Specialization,
-                Status = "Active",
+                Status = Status.Active,
                 ImageURL = doctorVm.ImageURL,
                 Phone = doctorVm.Phone,
                 DepartmentID = doctorVm.DepartmentId.Value,
@@ -102,7 +102,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
 
             var departments =(await _departmentService.GetAllAsync()).Select(d => new SelectListItem
                                      {
-                                         Value = d.DepartmentID.ToString(),
+                                         Value = d.Id.ToString(),
                                          Text = d.Name
                                      }).ToList();
 
@@ -135,14 +135,14 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
 
             var departmentList = departments.Select(d => new SelectListItem
             {
-                Value = d.DepartmentID.ToString(),
+                Value = d.Id.ToString(),
                 Text = d.Name,
-                Selected = d.DepartmentID == doctor.DepartmentID  
+                Selected = d.Id == doctor.Id  
             }).ToList();
 
             var doctorVm = new EditDoctorVM()
             {
-                Id = doctor.DoctorID,
+                Id = doctor.Id,
                 Name = doctor.Name,
                 Specialization = doctor.Specialization,
                 ImageURL = doctor.ImageURL,

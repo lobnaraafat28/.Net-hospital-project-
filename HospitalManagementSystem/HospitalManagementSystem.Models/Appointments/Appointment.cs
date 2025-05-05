@@ -1,4 +1,5 @@
 using HospitalManagementSystem.Models.Doctors;
+using HospitalManagementSystem.Models.Enums;
 using HospitalManagementSystem.Models.Patients;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,28 +9,28 @@ namespace HospitalManagementSystem.Models.Appointments
     public class Appointment
     {
         [Key]
-        public int AppointmentID { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public DateTime AppointmentDate { get; set; }
 
         [Required]
         public TimeSpan AppointmentTime { get; set; }
-        public string? Status { get; set; }
+        public Status Status { get; set; }
 
         [ForeignKey("Patient")]
-        public int PatientID { get; set; }
-        public virtual Patient? Patient { get; set; }
+        public required int PatientID { get; set; }
+        public  virtual Patient Patient { get; set; }
 
         [ForeignKey("Doctor")]
-        public int DoctorID { get; set; }
-        public virtual Doctor? Doctor { get; set; }
+        public required int DoctorID { get; set; }
+        public  virtual Doctor Doctor { get; set; }
 
         [ForeignKey("Schedule")]
-        public int ScheduleID { get; set; }
-        public virtual Schedule? Schedule { get; set; }
+        public required int ScheduleID { get; set; }
+        public  virtual Schedule Schedule { get; set; }
 
-        public virtual ICollection<Prescription>? Prescriptions { get; set; }
+        public virtual Prescription? Prescriptions { get; set; }
 
     }
 }

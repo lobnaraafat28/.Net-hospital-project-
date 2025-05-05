@@ -1,3 +1,4 @@
+using HospitalManagementSystem.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace HospitalManagementSystem.Models.Contacts
@@ -12,14 +13,10 @@ namespace HospitalManagementSystem.Models.Contacts
         public string? Address { get; set; }
 
         [Required]
-        public string Name { get; set; }
-        public string? Status { get; set; }
-        public string? Location { get; set; }
-        public string? Facebook { get; set; }
-        public string? Twitter { get; set; }
-        public string? Linkedin { get; set; }
+        public required string Name { get; set; }
+        public Status Status { get; set; }
+        [MaxLength(11)]
 
-        [Phone]
         public string? Phone { get; set; }
     }
 }

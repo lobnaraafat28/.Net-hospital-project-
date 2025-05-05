@@ -27,7 +27,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
                 var departmentVM = new DepartmentVM()
                 {
                     Name = department.Name,
-                    DepartmentID = department.DepartmentID,
+                    DepartmentID = department.Id,
                     Description = department.Description
 
                 };
@@ -71,7 +71,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
             var departmentVM = new DepartmentVM()
             {
                 Name = department.Name,
-                DepartmentID = department.DepartmentID,
+                DepartmentID = department.Id,
                 Description = department.Description
 
             };

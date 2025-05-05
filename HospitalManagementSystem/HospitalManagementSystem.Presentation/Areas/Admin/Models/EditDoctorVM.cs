@@ -14,7 +14,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Models
         [Required(ErrorMessage = "Please select a department.")]
 
         public int? DepartmentId { get; set; }
-        public string? SpecialityLevel { get; set; }
+        public int? SpecialityLevel { get; set; }
 
 
         public List<SelectListItem>? Departments { get; set; }

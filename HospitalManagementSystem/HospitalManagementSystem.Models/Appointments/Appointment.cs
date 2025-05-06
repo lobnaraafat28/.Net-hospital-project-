@@ -19,15 +19,20 @@ namespace HospitalManagementSystem.Models.Appointments
         public Status Status { get; set; }
 
         [ForeignKey("Patient")]
-        public required int PatientID { get; set; }
+        [Required]
+        public int PatientID { get; set; }
+        [Required]
         public  virtual Patient Patient { get; set; }
 
         [ForeignKey("Doctor")]
-        public required int DoctorID { get; set; }
+        [Required]
+        public int DoctorID { get; set; }
+        [Required]
         public  virtual Doctor Doctor { get; set; }
 
         [ForeignKey("Schedule")]
-        public required int ScheduleID { get; set; }
+        [Required]  
+        public int ScheduleID { get; set; }
         public  virtual Schedule Schedule { get; set; }
 
         public virtual Prescription? Prescriptions { get; set; }

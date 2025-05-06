@@ -9,19 +9,20 @@ namespace HospitalManagementSystem.Models.Doctors
     {
         [Key]
         public int Id { get; set; }
-
-        public required string Name { get; set; }
+        [Required]
+        [MaxLength(100)]
+        public  string Name { get; set; }
         public string? Specialization { get; set; }
         public Status Status { get; set; }
         public string? ImageURL { get; set; }
         [ForeignKey("SpecialtyLevel")]
         public int SpecialtyLevel {  get; set; }
         [MaxLength(11)]
-
-        public required string Phone { get; set; }
-
+        [Required]
+        public  string Phone { get; set; }
+        [Required]
         [ForeignKey("Department")]
-        public required int DepartmentID { get; set; }
+        public  int DepartmentID { get; set; }
         public  virtual Department Department { get; set; }
         public virtual SpecialityLevel? SpecialityLevel { get; set; }
         public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();

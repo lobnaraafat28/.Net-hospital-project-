@@ -14,12 +14,16 @@ namespace HospitalManagementSystem.Models.Appointments
         public int? ModifiedBy { get; set; }
 
         [ForeignKey("Patient")]
+        [Required]
         public int PatientID { get; set; }
-        public required virtual Patient Patient { get; set; }
+        [Required]
+        public virtual Patient Patient { get; set; }
 
         [ForeignKey("Diagnosis")]
+        [Required]
         public int DiagnosisID { get; set; }
-        public required Diagnosis Diagnosis { get; set; }
+        [Required]
+        public Diagnosis Diagnosis { get; set; }
         public virtual ICollection<Prescription>? Prescriptions { get; set; }
     }
 }

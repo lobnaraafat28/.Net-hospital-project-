@@ -9,7 +9,7 @@ namespace HospitalManagementSystem.Models.Doctors
         public int Id { get; set; }
 
         [Required]
-        public required string Name { get; set; }
+        public string Name { get; set; }
         public Status Status { get; set; }
 
         [Required]

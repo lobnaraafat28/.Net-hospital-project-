@@ -1,16 +1,15 @@
+using HospitalManagementSystem.Models.Base;
 using HospitalManagementSystem.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace HospitalManagementSystem.Models.Doctors
 {
-    public class Department
+    public class Department:BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
+       
 
         [Required]
         public string Name { get; set; }
-        public Status Status { get; set; }
 
         [Required]
         [MaxLength(600)]

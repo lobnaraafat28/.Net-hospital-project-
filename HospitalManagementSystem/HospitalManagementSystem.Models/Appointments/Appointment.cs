@@ -1,3 +1,4 @@
+using HospitalManagementSystem.Models.Base;
 using HospitalManagementSystem.Models.Doctors;
 using HospitalManagementSystem.Models.Enums;
 using HospitalManagementSystem.Models.Patients;
@@ -6,17 +7,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalManagementSystem.Models.Appointments
 {
-    public class Appointment
+    public class Appointment : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
 
         [Required]
-        public DateTime AppointmentDate { get; set; }
-
-        [Required]
-        public TimeSpan AppointmentTime { get; set; }
-        public Status Status { get; set; }
+        public DateTime AppointmentDateTime { get; set; }
 
         [ForeignKey("Patient")]
         [Required]
@@ -35,7 +30,7 @@ namespace HospitalManagementSystem.Models.Appointments
         public int ScheduleID { get; set; }
         public  virtual Schedule Schedule { get; set; }
 
-        public virtual Prescription? Prescriptions { get; set; }
+        public virtual Prescription? Prescription { get; set; }
 
     }
 }

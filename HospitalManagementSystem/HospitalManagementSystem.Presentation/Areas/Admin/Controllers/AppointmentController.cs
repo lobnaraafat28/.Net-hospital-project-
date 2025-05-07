@@ -50,7 +50,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
             {
                 Patients = (await _patientService.GetAllAsync()).Select(p => new SelectListItem
                 {
-                    Value = p.PatientID.ToString(),
+                    Value = p.Id.ToString(),
                     Text = p.Name
                 }).ToList(),
                 Doctors = (await _doctorService.GetAllAsync()).Select(p => new SelectListItem
@@ -79,7 +79,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
 
                 appointmentVM.Patients = (await _patientService.GetAllAsync()).Select(p => new SelectListItem
                 {
-                    Value = p.PatientID.ToString(),
+                    Value = p.Id.ToString(),
                     Text = p.Name
                 }).ToList();
                 appointmentVM.Doctors = (await _doctorService.GetAllAsync()).Select(d => new SelectListItem
@@ -98,8 +98,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
 
             var appointment = new Appointment()
             {
-                AppointmentDate = appointmentVM.AppointmentDate,
-                AppointmentTime = appointmentVM.AppointmentTime,
+                AppointmentDateTime = appointmentVM.AppointmentDate,
                 Status = Status.Active,
                 PatientID = appointmentVM.PatientID,
                 DoctorID = appointmentVM.DoctorID,
@@ -121,14 +120,13 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
             var appointmentVM = new AppointmentVM
             {
                 AppointmentID = appointment.Id,
-                AppointmentDate = appointment.AppointmentDate,
-                AppointmentTime = appointment.AppointmentTime,
+                AppointmentDate = appointment.AppointmentDateTime,
                 PatientID = appointment.PatientID,
                 DoctorID = appointment.DoctorID,
                 ScheduleID = appointment.ScheduleID,
                 Patients = (await _patientService.GetAllAsync()).Select(p => new SelectListItem
                 {
-                    Value = p.PatientID.ToString(),
+                    Value = p.Id.ToString(),
                     Text = p.Name
                 }).ToList(),
                 Doctors = (await _doctorService.GetAllAsync()).Select(d => new SelectListItem
@@ -157,7 +155,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
             {
                 appointmentVM.Patients = (await _patientService.GetAllAsync()).Select(p => new SelectListItem
                 {
-                    Value = p.PatientID.ToString(),
+                    Value = p.Id.ToString(),
                     Text = p.Name
                 }).ToList();
                 appointmentVM.Doctors = (await _doctorService.GetAllAsync()).Select(d => new SelectListItem
@@ -179,8 +177,7 @@ namespace HospitalManagementSystem.Presentation.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            appointment.AppointmentDate = appointmentVM.AppointmentDate;
-            appointment.AppointmentTime = appointmentVM.AppointmentTime;
+            appointment.AppointmentDateTime = appointmentVM.AppointmentDate;
             appointment.PatientID = appointmentVM.PatientID;
             appointment.DoctorID = appointmentVM.DoctorID;
             appointment.ScheduleID = appointmentVM.ScheduleID;

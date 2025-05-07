@@ -1,19 +1,18 @@
 using HospitalManagementSystem.Models.Appointments;
+using HospitalManagementSystem.Models.Base;
 using HospitalManagementSystem.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalManagementSystem.Models.Doctors
 {
-    public class Doctor
+    public class Doctor:BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
+       
         [Required]
         [MaxLength(100)]
         public  string Name { get; set; }
         public string? Specialization { get; set; }
-        public Status Status { get; set; }
         public string? ImageURL { get; set; }
         [ForeignKey("SpecialtyLevel")]
         public int SpecialtyLevel {  get; set; }

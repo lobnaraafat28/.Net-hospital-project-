@@ -32,7 +32,7 @@ namespace HospitalManagementSystem.Services.Services
         }
         public async Task DeletePatient(int id)
         {
-            var patient = _context.Patients.FirstOrDefault(p => p.PatientID == id);
+            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.Id == id);
             if (patient != null)
             {
                 patient.Status = Models.Enums.Status.Inactive;

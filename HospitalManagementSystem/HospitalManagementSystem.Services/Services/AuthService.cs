@@ -70,7 +70,7 @@ namespace HospitalManagementSystem.Services
                 Email = registerDto.Email,
                 PasswordHash = Convert.ToBase64String(passwordHash),
                 CreatedDate = DateTime.Now,
-                Status = "Active"
+                Status = Models.Enums.Status.Active
             };
             var userDto = _mapper.Map<UsersDto>(user);
             

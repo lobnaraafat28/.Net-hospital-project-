@@ -24,6 +24,8 @@ namespace HospitalManagementSystem.Data
         public DbSet<History> Histories { get; set; }
         public DbSet<Diagnosis> Diagnosis { get; set; }
         public DbSet<ContactUs> ContactUsMessages { get; set; }
+        public DbSet<PrescriptionImage> PrescriptionImages { get; set; }
+        public DbSet<SpecialityLevel> SpecialityLevels { get; set; }
  
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -59,7 +61,7 @@ namespace HospitalManagementSystem.Data
 
             modelBuilder.Entity<Prescription>()
                 .HasOne(p => p.Appointment)
-                .WithOne(a => a.Prescriptions)
+                .WithOne(a => a.Prescription)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Prescription>()

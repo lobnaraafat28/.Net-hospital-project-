@@ -9,10 +9,11 @@ namespace HospitalManagementSystem.Models.Doctors
 {
     public class SpecialityLevel
     {
-        [Required]
-        public  string Name { get; set; }
         [Key]
         public int Id { get; set; }
+        [Required]
+        public  string Name { get; set; }
+       
         public virtual ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
     }
 }

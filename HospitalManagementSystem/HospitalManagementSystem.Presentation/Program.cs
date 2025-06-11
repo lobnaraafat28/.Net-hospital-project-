@@ -21,7 +21,7 @@ namespace HospitalManagementSystem.Presentation
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString, b => b.MigrationsAssembly("HospitalManagementSystem.Data")));
+                options.UseSqlServer(connectionString));
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IPatientService, PatientService>();
             builder.Services.AddScoped<IDoctorService, DoctorService>();
@@ -29,39 +29,14 @@ namespace HospitalManagementSystem.Presentation
             builder.Services.AddScoped<IContactUsService, ContactUsService>();
             builder.Services.AddScoped<IAppointmentService, AppointmentService>();
             builder.Services.AddScoped<IScheduleService, ScheduleService>();
-            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
-            // Configure JWT Authentication
-            var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-            var secretKey = jwtSettings["SecretKey"];
-
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtSettings["Issuer"],
-                    ValidAudience = jwtSettings["Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
-                };
-            });
-
-            // Add authorization
-            builder.Services.AddAuthorization();
+           
 
             var app = builder.Build();
 
@@ -88,7 +63,7 @@ namespace HospitalManagementSystem.Presentation
 
             app.MapControllerRoute(
      name: "areas",
-     pattern: "{area:exists}/{controller=Account}/{action=Login}/{id?}");
+     pattern: "{area:exists}/{controller=Account}/{action=Login}");
 
             app.MapControllerRoute(
                 name: "default",
